@@ -1,24 +1,25 @@
-import Header from "./components/Header";
-import React from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
-import { inject, observer } from "mobx-react";
-import PrivateRoute from "components/PrivateRoute";
+import Header from './components/Header'
+import React from 'react'
+import { Switch, Route, withRouter } from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
+import PrivateRoute from 'components/PrivateRoute'
 
-import Login from "pages/Login";
-import Home from "pages/Home";
-import Register from "pages/Register";
-import Article from "pages/Article";
-import Editor from "pages/Editor";
-import Profile from "pages/Profile";
-import Settings from "pages/Settings";
+import Login from 'pages/Login'
+import Home from 'pages/Home'
+import Register from 'pages/Register'
+import Article from 'pages/Article'
+import Editor from 'pages/Editor'
+import Profile from 'pages/Profile'
+import Settings from 'pages/Settings'
+import LandingPage from 'pages/LandingPage'
 
-@inject("userStore", "commonStore")
+@inject('userStore', 'commonStore')
 @withRouter
 @observer
 export default class App extends React.Component {
   componentWillMount() {
     if (!this.props.commonStore.token) {
-      this.props.commonStore.setAppLoaded();
+      this.props.commonStore.setAppLoaded()
     }
   }
 
@@ -26,7 +27,7 @@ export default class App extends React.Component {
     if (this.props.commonStore.token) {
       this.props.userStore
         .pullUser()
-        .finally(() => this.props.commonStore.setAppLoaded());
+        .finally(() => this.props.commonStore.setAppLoaded())
     }
   }
 
@@ -43,11 +44,12 @@ export default class App extends React.Component {
             <PrivateRoute path="/settings" component={Settings} />
             <Route path="/@:username" component={Profile} />
             <Route path="/@:username/favorites" component={Profile} />
+            <Route path="/lp" component={LandingPage} />
             <Route path="/" component={Home} />
           </Switch>
         </div>
-      );
+      )
     }
-    return <Header />;
+    return <Header />
   }
 }
